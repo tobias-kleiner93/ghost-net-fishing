@@ -56,16 +56,33 @@
         </dependency>
 
         <!-- MySQL Datenbanktreiber -->
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <version>8.3.0</version>
-        </dependency>
+		<dependency>
+			<groupId>com.mysql</groupId>
+    		<artifactId>mysql-connector-j</artifactId>
+    		<version>9.7.0</version>
+		</dependency>
 
     </dependencies>
 
     <build>
-        <finalName>ghost-net-fishing</finalName>
-    </build>
+    <finalName>ghost-net-fishing</finalName>
+
+    <plugins>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.11.0</version>
+        </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.4.0</version>
+        </plugin>
+
+    </plugins>
+
+</build>
 
 </project>
