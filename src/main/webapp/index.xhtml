@@ -10,11 +10,34 @@
 
     <h1>Ghost Net Fishing</h1>
 
-    <h2>Willkommen zur Geisternetzverwaltung</h2>
+    <h2>Geisternetz melden</h2>
+    
+    <h:outputText value="#{ghostNetBean.meldung}"
+              rendered="#{not empty ghostNetBean.meldung}" />
 
-    <p>
-        Diese Anwendung dient der Verwaltung gemeldeter Geisternetze.
-    </p>
+    <h:form>
+
+        <p>
+            Breitengrad:
+            <h:inputText value="#{ghostNetBean.breitengrad}" />
+        </p>
+
+        <p>
+            Längengrad:
+            <h:inputText value="#{ghostNetBean.laengengrad}" />
+        </p>
+
+        <p>
+            Größe:
+            <h:inputText value="#{ghostNetBean.groesse}" />
+        </p>
+
+        <p>
+            <h:commandButton value="Geisternetz melden"
+                             action="#{ghostNetBean.speichern}" />
+        </p>
+
+    </h:form>
 
 </h:body>
 
