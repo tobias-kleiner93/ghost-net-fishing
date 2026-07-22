@@ -20,17 +20,29 @@
 
         <p>
             Breitengrad:
-            <h:inputText value="#{ghostNetBean.breitengrad}" />
+            <h:inputText id="breitengrad"
+                         value="#{ghostNetBean.breitengrad}"
+                         required="true"
+                         requiredMessage="Bitte einen Breitengrad eingeben." />
+            <h:message for="breitengrad" />
         </p>
 
         <p>
             Längengrad:
-            <h:inputText value="#{ghostNetBean.laengengrad}" />
+            <h:inputText id="laengengrad"
+                         value="#{ghostNetBean.laengengrad}"
+                         required="true"
+                         requiredMessage="Bitte einen Längengrad eingeben." />
+            <h:message for="laengengrad" />
         </p>
 
         <p>
             Größe:
-            <h:inputText value="#{ghostNetBean.groesse}" />
+            <h:inputText id="groesse"
+                         value="#{ghostNetBean.groesse}"
+                         required="true"
+                         requiredMessage="Bitte eine Größe eingeben." />
+            <h:message for="groesse" />
         </p>
 
         <p>
@@ -91,22 +103,22 @@
             <h:commandButton value="Bergung übernehmen"
                              action="#{ghostNetBean.bergen}" />
         </p>
-        
-        <h2>Geisternetz als geborgen markieren</h2>
 
-<h:form>
+    </h:form>
 
-    <p>
-        ID des Geisternetzes:
-        <h:inputText value="#{ghostNetBean.geborgenesGhostNetId}" />
-    </p>
+    <h2>Geisternetz als geborgen markieren</h2>
 
-    <p>
-        <h:commandButton value="Als geborgen markieren"
-                         action="#{ghostNetBean.alsGeborgenMarkieren}" />
-    </p>
+    <h:form>
 
-</h:form>
+        <p>
+            ID des Geisternetzes:
+            <h:inputText value="#{ghostNetBean.geborgenesGhostNetId}" />
+        </p>
+
+        <p>
+            <h:commandButton value="Als geborgen markieren"
+                             action="#{ghostNetBean.alsGeborgenMarkieren}" />
+        </p>
 
     </h:form>
 

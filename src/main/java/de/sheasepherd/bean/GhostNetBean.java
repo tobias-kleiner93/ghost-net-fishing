@@ -5,8 +5,8 @@ import java.util.List;
 import de.sheasepherd.entity.BergendePerson;
 import de.sheasepherd.entity.GhostNet;
 import de.sheasepherd.entity.Status;
-import de.sheasepherd.repository.GhostNetRepository;
 import de.sheasepherd.repository.BergendePersonRepository;
+import de.sheasepherd.repository.GhostNetRepository;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
@@ -14,150 +14,144 @@ import jakarta.inject.Named;
 @RequestScoped
 public class GhostNetBean {
 
-    private double breitengrad;
+    private Double breitengrad;
+    private Double laengengrad;
+    private Double groesse;
 
-    private double laengengrad;
-    
-	private double groesse;
+    private final GhostNetRepository repository =
+            new GhostNetRepository();
 
-    private GhostNetRepository repository = new GhostNetRepository();
-	
-    private BergendePersonRepository bergendePersonRepository =
+    private final BergendePersonRepository bergendePersonRepository =
             new BergendePersonRepository();
-    
+
     private String meldung;
-    
+
     private Long ausgewaehlteGhostNetId;
-
     private String nameBergendePerson;
-    
+
     private Long geborgenesGhostNetId;
-        
 
-	public Long getGeborgenesGhostNetId() {
-		return geborgenesGhostNetId;
-	}
+    public String speichern() {
 
+        GhostNet ghostNet = new GhostNet();
 
-	public void setGeborgenesGhostNetId(Long geborgenesGhostNetId) {
-		this.geborgenesGhostNetId = geborgenesGhostNetId;
-	}
+        ghostNet.setBreitengrad(breitengrad);
+        ghostNet.setLaengengrad(laengengrad);
+        ghostNet.setGroesse(groesse);
+        ghostNet.setStatus(Status.GEMELDET);
 
+        repository.speichern(ghostNet);
 
-	public Long getAusgewaehlteGhostNetId() {
-		return ausgewaehlteGhostNetId;
-	}
+        meldung = "Geisternetz wurde erfolgreich gespeichert.";
 
+        return null;
+    }
 
-	public void setAusgewaehlteGhostNetId(Long ausgewaehlteGhostNetId) {
-		this.ausgewaehlteGhostNetId = ausgewaehlteGhostNetId;
-	}
+    public String bergen() {
 
+        GhostNet ghostNet =
+                repository.findeNachId(ausgewaehlteGhostNetId);
 
-	public String getNameBergendePerson() {
-		return nameBergendePerson;
-	}
+        if (ghostNet == null) {
+            meldung = "Das ausgewählte Geisternetz wurde nicht gefunden.";
+            return null;
+        }
 
+        BergendePerson bergendePerson = new BergendePerson();
+        bergendePerson.setName(nameBergendePerson);
 
-	public void setNameBergendePerson(String nameBergendePerson) {
-		this.nameBergendePerson = nameBergendePerson;
-	}
+        bergendePersonRepository.speichern(bergendePerson);
 
+        ghostNet.setBergendePerson(bergendePerson);
+        ghostNet.setStatus(Status.BERGUNG_BEVORSTEHEND);
 
-	public double getBreitengrad() {
-		return breitengrad;
-	}
-    
+        repository.aktualisieren(ghostNet);
 
-	public void setBreitengrad(double breitengrad) {
-		this.breitengrad = breitengrad;
-	}
+        meldung = "Die Bergung wurde erfolgreich übernommen.";
 
-	public double getLaengengrad() {
-		return laengengrad;
-	}
+        return null;
+    }
 
-	public void setLaengengrad(double laengengrad) {
-		this.laengengrad = laengengrad;
-	}
+    public String alsGeborgenMarkieren() {
 
-	public double getGroesse() {
-		return groesse;
-	}
+        GhostNet ghostNet =
+                repository.findeNachId(geborgenesGhostNetId);
 
-	public void setGroesse(double groesse) {
-		this.groesse = groesse;
-	}
-	public String speichern() {
+        if (ghostNet == null) {
+            meldung = "Das ausgewählte Geisternetz wurde nicht gefunden.";
+            return null;
+        }
 
-	    GhostNet ghostNet = new GhostNet();
+        ghostNet.setStatus(Status.GEBORGEN);
 
-	    ghostNet.setBreitengrad(breitengrad);
-	    ghostNet.setLaengengrad(laengengrad);
-	    ghostNet.setGroesse(groesse);
-	    ghostNet.setStatus(Status.GEMELDET);
+        repository.aktualisieren(ghostNet);
 
-	    repository.speichern(ghostNet);
-	    
-	    meldung = "Geisternetz wurde erfolgreich gespeichert.";
-	    return null;
-	}
-	
-	public String bergen() {
+        meldung =
+                "Das Geisternetz wurde erfolgreich als geborgen markiert.";
 
-	    GhostNet ghostNet =
-	            repository.findeNachId(ausgewaehlteGhostNetId);
+        return null;
+    }
 
-	    if (ghostNet == null) {
-	        meldung = "Das ausgewählte Geisternetz wurde nicht gefunden.";
-	        return null;
-	    }
+    public List<GhostNet> getGeisternetze() {
+        return repository.findeAlle();
+    }
 
-	    BergendePerson bergendePerson = new BergendePerson();
-	    bergendePerson.setName(nameBergendePerson);
-	    
-	    bergendePersonRepository.speichern(bergendePerson);
+    public Double getBreitengrad() {
+        return breitengrad;
+    }
 
-	    ghostNet.setBergendePerson(bergendePerson);
-	    ghostNet.setStatus(Status.BERGUNG_BEVORSTEHEND);
+    public void setBreitengrad(Double breitengrad) {
+        this.breitengrad = breitengrad;
+    }
 
-	    repository.aktualisieren(ghostNet);
+    public Double getLaengengrad() {
+        return laengengrad;
+    }
 
-	    meldung = "Die Bergung wurde erfolgreich übernommen.";
+    public void setLaengengrad(Double laengengrad) {
+        this.laengengrad = laengengrad;
+    }
 
-	    return null;
-	}
-	
-	public String alsGeborgenMarkieren() {
+    public Double getGroesse() {
+        return groesse;
+    }
 
-	    GhostNet ghostNet =
-	            repository.findeNachId(geborgenesGhostNetId);
+    public void setGroesse(Double groesse) {
+        this.groesse = groesse;
+    }
 
-	    if (ghostNet == null) {
-	        meldung = "Das ausgewählte Geisternetz wurde nicht gefunden.";
-	        return null;
-	    }
+    public String getMeldung() {
+        return meldung;
+    }
 
-	    ghostNet.setStatus(Status.GEBORGEN);
+    public void setMeldung(String meldung) {
+        this.meldung = meldung;
+    }
 
-	    repository.aktualisieren(ghostNet);
+    public Long getAusgewaehlteGhostNetId() {
+        return ausgewaehlteGhostNetId;
+    }
 
-	    meldung = "Das Geisternetz wurde erfolgreich als geborgen markiert.";
+    public void setAusgewaehlteGhostNetId(
+            Long ausgewaehlteGhostNetId) {
+        this.ausgewaehlteGhostNetId = ausgewaehlteGhostNetId;
+    }
 
-	    return null;
-	}
-	
-	public String getMeldung() {
-		return meldung;
-	}
+    public String getNameBergendePerson() {
+        return nameBergendePerson;
+    }
 
+    public void setNameBergendePerson(
+            String nameBergendePerson) {
+        this.nameBergendePerson = nameBergendePerson;
+    }
 
-	public void setMeldung(String meldung) {
-		this.meldung = meldung;
-	}
-	
-	public List<GhostNet> getGeisternetze() {
-	    return repository.findeAlle();
-	}
+    public Long getGeborgenesGhostNetId() {
+        return geborgenesGhostNetId;
+    }
 
+    public void setGeborgenesGhostNetId(
+            Long geborgenesGhostNetId) {
+        this.geborgenesGhostNetId = geborgenesGhostNetId;
+    }
 }
