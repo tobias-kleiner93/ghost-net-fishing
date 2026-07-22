@@ -23,7 +23,10 @@
             <h:inputText id="breitengrad"
                          value="#{ghostNetBean.breitengrad}"
                          required="true"
-                         requiredMessage="Bitte einen Breitengrad eingeben." />
+                         requiredMessage="Bitte einen Breitengrad eingeben."
+                         validatorMessage="Der Breitengrad muss zwischen -90 und 90 liegen.">
+                <f:validateDoubleRange minimum="-90" maximum="90" />
+            </h:inputText>
             <h:message for="breitengrad" />
         </p>
 
@@ -32,7 +35,10 @@
             <h:inputText id="laengengrad"
                          value="#{ghostNetBean.laengengrad}"
                          required="true"
-                         requiredMessage="Bitte einen Längengrad eingeben." />
+                         requiredMessage="Bitte einen Längengrad eingeben."
+                         validatorMessage="Der Längengrad muss zwischen -180 und 180 liegen.">
+                <f:validateDoubleRange minimum="-180" maximum="180" />
+            </h:inputText>
             <h:message for="laengengrad" />
         </p>
 
@@ -41,7 +47,10 @@
             <h:inputText id="groesse"
                          value="#{ghostNetBean.groesse}"
                          required="true"
-                         requiredMessage="Bitte eine Größe eingeben." />
+                         requiredMessage="Bitte eine Größe eingeben."
+                         validatorMessage="Die Größe muss größer als 0 sein.">
+                <f:validateDoubleRange minimum="0.01" />
+            </h:inputText>
             <h:message for="groesse" />
         </p>
 
