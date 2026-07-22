@@ -5,6 +5,7 @@ import jakarta.inject.Named;
 import de.sheasepherd.repository.GhostNetRepository;
 import de.sheasepherd.entity.GhostNet;
 import de.sheasepherd.entity.Status;
+import java.util.List;
 
 @Named
 @RequestScoped
@@ -19,7 +20,7 @@ public class GhostNetBean {
     private GhostNetRepository repository = new GhostNetRepository();
 	
     private String meldung;
-    
+        
 
 	public double getBreitengrad() {
 		return breitengrad;
@@ -67,6 +68,10 @@ public class GhostNetBean {
 
 	public void setMeldung(String meldung) {
 		this.meldung = meldung;
+	}
+	
+	public List<GhostNet> getGeisternetze() {
+	    return repository.findeAlle();
 	}
 
 }
