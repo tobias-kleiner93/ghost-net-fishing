@@ -91,6 +91,22 @@
             <h:commandButton value="Bergung übernehmen"
                              action="#{ghostNetBean.bergen}" />
         </p>
+        
+        <h2>Geisternetz als geborgen markieren</h2>
+
+<h:form>
+
+    <p>
+        ID des Geisternetzes:
+        <h:inputText value="#{ghostNetBean.geborgenesGhostNetId}" />
+    </p>
+
+    <p>
+        <h:commandButton value="Als geborgen markieren"
+                         action="#{ghostNetBean.alsGeborgenMarkieren}" />
+    </p>
+
+</h:form>
 
     </h:form>
 

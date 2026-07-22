@@ -30,7 +30,19 @@ public class GhostNetBean {
     private Long ausgewaehlteGhostNetId;
 
     private String nameBergendePerson;
+    
+    private Long geborgenesGhostNetId;
         
+
+	public Long getGeborgenesGhostNetId() {
+		return geborgenesGhostNetId;
+	}
+
+
+	public void setGeborgenesGhostNetId(Long geborgenesGhostNetId) {
+		this.geborgenesGhostNetId = geborgenesGhostNetId;
+	}
+
 
 	public Long getAusgewaehlteGhostNetId() {
 		return ausgewaehlteGhostNetId;
@@ -112,6 +124,25 @@ public class GhostNetBean {
 	    repository.aktualisieren(ghostNet);
 
 	    meldung = "Die Bergung wurde erfolgreich übernommen.";
+
+	    return null;
+	}
+	
+	public String alsGeborgenMarkieren() {
+
+	    GhostNet ghostNet =
+	            repository.findeNachId(geborgenesGhostNetId);
+
+	    if (ghostNet == null) {
+	        meldung = "Das ausgewählte Geisternetz wurde nicht gefunden.";
+	        return null;
+	    }
+
+	    ghostNet.setStatus(Status.GEBORGEN);
+
+	    repository.aktualisieren(ghostNet);
+
+	    meldung = "Das Geisternetz wurde erfolgreich als geborgen markiert.";
 
 	    return null;
 	}
