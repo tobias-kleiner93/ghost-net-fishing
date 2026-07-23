@@ -13,10 +13,15 @@
 
     <h2>Geisternetz melden</h2>
 
-    <h:outputText value="#{ghostNetBean.meldung}"
-                  rendered="#{not empty ghostNetBean.meldung}" />
+    <h:panelGroup rendered="#{not empty ghostNetBean.meldung}">
+    	<p style="color: green; font-weight: bold;">
+        	<h:outputText value="#{ghostNetBean.meldung}" />
+   		</p>
+	</h:panelGroup>
 
     <h:form>
+    
+  
 
         <p>
             Breitengrad:
@@ -60,6 +65,7 @@
         </p>
 
     </h:form>
+    <hr />
 
     <h2>Gemeldete Geisternetze</h2>
 
@@ -93,10 +99,13 @@
         </h:column>
 
     </h:dataTable>
+    
+    <hr />
 
     <h2>Bergung übernehmen</h2>
 
     <h:form>
+    
 
         <p>
             ID des Geisternetzes:
@@ -114,6 +123,7 @@
         </p>
 
     </h:form>
+    <hr />
 
     <h2>Geisternetz als geborgen markieren</h2>
 
@@ -130,6 +140,7 @@
         </p>
 
     </h:form>
+    
 
 </h:body>
 

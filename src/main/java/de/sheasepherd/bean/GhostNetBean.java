@@ -41,6 +41,9 @@ public class GhostNetBean {
         ghostNet.setStatus(Status.GEMELDET);
 
         repository.speichern(ghostNet);
+        breitengrad = null;
+        laengengrad = null;
+        groesse = null;
 
         meldung = "Geisternetz wurde erfolgreich gespeichert.";
 
