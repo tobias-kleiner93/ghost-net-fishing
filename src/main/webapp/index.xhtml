@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
-      xmlns:f="jakarta.faces.core">
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
 
 <h:head>
     <title>Ghost Net Fishing</title>
+    <h:outputStylesheet library="css" name="style.css"/>
 </h:head>
 
 <h:body>
@@ -14,10 +16,12 @@
     <h2>Geisternetz melden</h2>
 
     <h:panelGroup rendered="#{not empty ghostNetBean.meldung}">
-    	<p style="color: green; font-weight: bold;">
-        	<h:outputText value="#{ghostNetBean.meldung}" />
-   		</p>
-	</h:panelGroup>
+
+    <div class="erfolg">
+        <h:outputText value="#{ghostNetBean.meldung}" />
+    </div>
+
+</h:panelGroup>
 
     <h:form>
     
